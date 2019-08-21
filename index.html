@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Waitstaff Calculator</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <main>
+    <h1>Waitstaff Calculator</h1>
+    <form id="js-meal-details-form"> 
+      <fieldset>
+        <legend>Enter the Meal Details</legend>
+        <label for="base-meal-price">Base Meal Price: $</label>
+        <input type="text" name="base-meal-price" class="js-base-meal-price">
+        <br>
+        <label for="tax-rate">Tax Rate: %</label>
+        <input type="text" name="tax-rate" class="js-tax-rate">
+        <br>
+        <label for="tip-percentage">Tip Percentage: %</label>
+        <input type="text" name="tip-percentage" class="js-tip-percentage">
+        <br>
+        <button type="submit" form="js-meal-details-form" class="js-submit-button">Submit</button>
+        <button type="button" class="js-cancel-button">Cancel</button>
+      </fieldset>
+    </form>
+    <ul class="js-customer-charges"></ul>
+    <ul class="js-earnings-info"></ul>
+    <button type="button" class="js-reset-button">Reset</button>
+  </main>
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/cuid/1.3.8/browser-cuid.min.js"></script>
+  <script src="//code.jquery.com/jquery.min.js"></script>
+  <script type="text/javascript" src="index.js"></script>
+</body>
+</html>
