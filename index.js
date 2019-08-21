@@ -72,15 +72,26 @@ function renderEarningsInfo() {
   $('.js-earnings-info').html(earningsInfoString);
 }
 
+function readInputMealDetails() {
+  const baseMealPrice = $('.js-base-meal-price').val();
+  const taxRate = $('.js-tax-rate').val();
+  const tipPercentage = $('.js-tip-percentage').val();
+  return {baseMealPrice, taxRate, tipPercentage};
+}
+
+function clearInputMealDetails() {
+  $('.js-base-meal-price').val(null);
+  $('.js-tax-rate').val(null);
+  $('.js-tip-percentage').val(null);
+}
+
 function handleSubmitMealDetails() {
   $('#js-meal-details-form').on('submit', event => {
     event.preventDefault();
 
-    const baseMealPrice = $('.js-base-meal-price').val();
-    const taxRate = $('.js-tax-rate').val();
-    const tipPercentage = $('.js-tip-percentage').val();
+    const mealDetails = readInputMealDetails();
 
-    const calcCharges = calculateCustomerCharges(baseMealPrice, taxRate, tipPercentage);
+    const calcCharges = calculateCustomerCharges(mealDetails.baseMealPrice, mealDetails.taxRate, mealDetails.tipPercentage);
     updateCustomerCharges(calcCharges.subtotal, calcCharges.tip, calcCharges.total);
 
     const calcEarnings = calculateEarningsInfo(calcCharges.tip);
@@ -92,22 +103,29 @@ function handleSubmitMealDetails() {
 }
 
 function handleCancelMealDetails() {
-  $('#js-meal-details-form').on('click', '.js-cancel-button', event => {
-    $('.js-base-meal-price').val(null);
-    $('.js-tax-rate').val(null);
-    $('.js-tip-percentage').val(null);
+  $('#js-meal-details-form').on('click', '.js-cancel-button', () => {
+    clearInputMealDetails();
   });
 }
 
-function handleResetEntireForm() {
-  // do reset here
+function handleResetApplication() {
+  $('.js-reset-button').on('click', () => {
+    clearInputMealDetails();
+    updateCustomerCharges(0, 0, 0);
+    updateEarningsInfo(0, 0, 0);
+    renderCustomerCharges();
+    renderEarningsInfo();
+  });
+}
 
+function initializeApplication() {
   renderCustomerCharges();
   renderEarningsInfo();
 }
 
 $(() => {
+  initializeApplication();
   handleSubmitMealDetails();
   handleCancelMealDetails();
-  handleResetEntireForm();
+  handleResetApplication();
 });
